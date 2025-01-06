@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <style>
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-container label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .form-container input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-container h1 {
+                font-size: 20px;
+            }
+
+            .form-container input[type="text"] {
+                font-size: 13px;
+            }
+
+            .form-container input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <div class="form-container">
+        <h1>Create Role</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="role_name"><strong>Role Name:</strong></label>
+                <input type="text" name="role_name" id="role_name" required>
+            </div>
+            <div>
+                <label for="description"><strong>Role Description:</strong></label>
+                <input type="text" name="description" id="description" required>
+            </div>
+            <input type="submit" value="Create">
+        </form>
+    </div>
+{% endblock %}
