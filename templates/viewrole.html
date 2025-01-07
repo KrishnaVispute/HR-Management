@@ -39,34 +39,6 @@
         background-color: #eaf4fc;
     }
 
-    button {
-        background-color: #007bff;
-        border: none;
-        padding: 8px 12px;
-        color: white;
-        font-size: 14px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    button a {
-        text-decoration: none;
-        color: white;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    button.delete {
-        background-color: #dc3545;
-    }
-
-    button.delete:hover {
-        background-color: #b02a37;
-    }
-
     @media (max-width: 768px) {
         table {
             font-size: 14px;
@@ -74,11 +46,6 @@
 
         table th, table td {
             padding: 10px;
-        }
-
-        button {
-            font-size: 12px;
-            padding: 6px 10px;
         }
     }
 </style>
@@ -97,12 +64,8 @@
         <td>{{ role.role_id }}</td>
         <td>{{ role.role_name }}</td>
         <td>{{ role.description }}</td>
-        <td>
-            <button><a href="updaterole/{{ role.role_id }}">Edit</a></button>
-        </td>
-        <td>
-            <button class="delete"><a href="deleterole/{{ role.role_id }}">Delete</a></button>
-        </td>
+        <td class="action-link"><a href="updaterole/{{ role.role_id }}">Edit</a></td>
+        <td class="action-links"><a href="deleterole/{{ role.role_id }}">Delete</a></td>
     </tr>
     {% endfor %}
 </table>
