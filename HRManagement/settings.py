@@ -133,3 +133,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Specify the custom user model
+AUTH_USER_MODEL = 'Department.Users'
+
+# # Gmail Integration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'krishnavispute543@gmail.com'  # Replace with your email
+EMAIL_HOST_PASSWORD = 'yjoo fukr ivxa oepm'  # Replace with your email password

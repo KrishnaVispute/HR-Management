@@ -265,6 +265,17 @@
                 <li><a href="/addemployee">Add Employee</a></li>
             </ul>
         </div>
+        <!-- Login/Logout Section -->
+        <div class="login-section">
+            {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="login-btn">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="login-btn">Login</a>
+            {% endif %}
+        </div>
     </div>
     <div class="container">
         {% block content %}

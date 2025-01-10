@@ -5,6 +5,13 @@
 
     <div class="form-container">
         <h1>Add Employee</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <form method="POST" action="/addemployee/">
             {% csrf_token %}
             
@@ -43,7 +50,7 @@
                 <select id="department" name="department" required>
                     <option value="">-- Select Department --</option>
                     {% for department in departments %}
-                    <option value="{{ department.dept_id }}">{{ department.depart_name }}</option>
+                    <option value="{{ department.dept_id }}">{{ department.dept_name }}</option>
                     {% endfor %}
                 </select>
             </div>
