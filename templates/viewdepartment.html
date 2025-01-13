@@ -12,11 +12,11 @@
             <th>Description</th>
 
         </tr>
-        {% for depart in departs %}
+        {% for dept in department %}
         <tr>
-            <td>{{ depart.dept_id }}</td>
-            <td>{{ depart.depart_name }}</td>
-            <td>{{ depart.description }}</td>
+            <td>{{ dept.dept_id }}</td>
+            <td>{{ dept.dept_name }}</td>
+            <td>{{ dept.description }}</td>
         </tr>
         {% endfor %}
     </table>

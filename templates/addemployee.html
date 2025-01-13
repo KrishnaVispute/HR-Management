@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-   
+
 
     <div class="form-container">
         <h1>Add Employee</h1>
@@ -14,7 +14,7 @@
         {% endif %}
         <form method="POST" action="/addemployee/">
             {% csrf_token %}
-            
+
             <div class="form-group">
                 <label for="first_name"><strong>First Name:</strong></label>
                 <input type="text" id="first_name" name="first_name" required placeholder="Enter first name">
@@ -60,11 +60,11 @@
                 <select id="reporting_manager" name="reporting_manager">
                     <option value="">-- Select Reporting Manager --</option>
                     {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.username }}</option>
+                    <option value="{{ user.id }}" {% if user == employee.reporting_manager %}selected{% endif %}>{{ user.username }}</option>
                     {% endfor %}
                 </select>
             </div>
-
+            
             <div class="form-group">
                 <label for="date_of_joining"><strong>Date of Joining:</strong></label>
                 <input type="date" id="date_of_joining" name="date_of_joining" required>

@@ -6,7 +6,7 @@
         <h1>Update Employee</h1>
         <form method="POST" action="/updateemployee/{{ employee.id }}/">
             {% csrf_token %}
-            
+
             <div class="form-group">
                 <label for="first_name"><strong>First Name:</strong></label>
                 <input type="text" id="first_name" name="first_name" value="{{ employee.first_name }}" required placeholder="Enter first name">
@@ -40,7 +40,7 @@
                 <label for="department"><strong>Select Department:</strong></label>
                 <select id="department" name="department" required>
                     {% for department in departments %}
-                    <option value="{{ department.dept_id }}" {% if department == employee.department %}selected{% endif %}>{{ department.depart_name }}</option>
+                    <option value="{{ department.dept_id }}" {% if department == employee.department %}selected{% endif %}>{{ department.dept_name }}</option>
                     {% endfor %}
                 </select>
             </div>
