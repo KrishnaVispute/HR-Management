@@ -51,7 +51,7 @@
                         <td>{{ review.review_period }}</td>
                         <td>{{ review.rating }}</td>
                         <td>
-                            <a href="{% url 'see_comments' review.review_id %}" class="see-comments-btn">Click to See</a>
+                            <a href="{% url 'see_comments' review.review_id %}" class="see-comments-btn">View</a>
                         </td>
                         <td>
                             <a href="{% url 'edit_review' review.review_id %}" class="edit-btn">Edit</a>
@@ -120,108 +120,98 @@
             <button type="submit" class="action-btn apply-filters-btn">Apply Filters</button>
         </form>
     </div>
-<!-- Statistics Section -->
-<div class="statistics">
-    <h3 class="statistics-title">Statistics</h3>
-    
-    <!-- Flexbox Container for Two Tables -->
-    <div class="statistics-tables-container">
-        
-        <!-- First Table: Period-wise Number of Reviews -->
-        <table class="statistics-table">
-            <thead>
-                <tr>
-                    <th>Period</th>
-                    <th>Number of Reviews</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Monthly</td>
-                    <td>{{ monthly_count }}</td>
-                </tr>
-                <tr>
-                    <td>Quarterly</td>
-                    <td>{{ quarterly_count }}</td>
-                </tr>
-                <tr>
-                    <td>Annual</td>
-                    <td>{{ annual_count }}</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <!-- Second Table: Number of Employees by Rating Range -->
-        <table class="statistics-table">
-            <thead>
-                <tr>
-                    <th>Rating Range</th>
-                    <th>Number of Employees</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1-5</td>
-                    <td>{{ range_1_5_employees }}</td> <!-- Display number of employees with reviews in range 1-5 -->
-                </tr>
-                <tr>
-                    <td>6-8</td>
-                    <td>{{ range_6_8_employees }}</td> <!-- Display number of employees with reviews in range 6-8 -->
-                </tr>
-                <tr>
-                    <td>9+</td>
-                    <td>{{ range_9_plus_employees }}</td> <!-- Display number of employees with reviews in range 9+ -->
-                </tr>
-            </tbody>
-        </table>
-        
+
+    <!-- Statistics Section -->
+    <div class="statistics">
+        <h3 class="statistics-title">Statistics</h3>
+        <div class="statistics-tables-container">
+            <table class="statistics-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number of Reviews</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Monthly</td><td>{{ monthly_count }}</td></tr>
+                    <tr><td>Quarterly</td><td>{{ quarterly_count }}</td></tr>
+                    <tr><td>Annual</td><td>{{ annual_count }}</td></tr>
+                </tbody>
+            </table>
+            <table class="statistics-table">
+                <thead>
+                    <tr>
+                        <th>Rating Range</th>
+                        <th>Number of Employees</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1-5</td><td>{{ range_1_5_employees }}</td></tr>
+                    <tr><td>6-8</td><td>{{ range_6_8_employees }}</td></tr>
+                    <tr><td>9+</td><td>{{ range_9_plus_employees }}</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-</div>
 <style>
-    /* General Styling */
+:root {
+    --primary-color: #2563eb; /* Modern blue */
+    --secondary-color: #10b981; /* Vibrant green */
+    --danger-color: #ef4444; /* Bright red */
+    --background-color: #f3f4f6; /* Light gray background */
+    --text-color: #1f2937; /* Dark gray text */
+    --table-header-bg: #e5e7eb; /* Light gray header */
+    --border-color: #d1d5db; /* Subtle border */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+}
+
 .content-container {
     padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
-    font-size: 2rem;
-    color: #333;
+    font-size: 1.8rem;
+    color: var(--primary-color);
     margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
 }
 
-/* Action Buttons */
 .action-buttons {
     display: flex;
-    justify-content: flex-start;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
 .action-btn {
-    display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    border-radius: 8px;
     text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    color: #fff;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .action-btn:hover {
-    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 .create-review-btn {
-    background-color: #28a745;
+    background-color: var(--secondary-color);
 }
 
-.create-review-btn:hover {
-    background-color: #218838;
+.task-management-btn {
+    background-color: var(--primary-color);
 }
 
 /* Pagination */
@@ -231,150 +221,109 @@
 }
 
 .pagination-btn {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
+    color: var(--primary-color);
     text-decoration: none;
-    border-radius: 5px;
-    margin: 0 5px;
-    transition: background-color 0.3s ease;
-}
-
-.pagination-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Table Styling */
-.table-container {
-    margin-top: 30px;
-}
-
-.review-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.review-table th, .review-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #f1f1f1;
+    font-weight: bold;
 }
 
 .review-table th {
-    background-color: #f8f9fa;
-    color: #333;
-}
-
-.review-table td {
-    background-color: #fff;
+    background-color: var(--table-header-bg);
+    color: var(--text-color);
 }
 
 .review-table tr:hover {
-    background-color: #f1f1f1;
+    background-color: var(--secondary-color);
 }
-
-/* Buttons in Table */
-.see-comments-btn,
-.edit-btn,
-.delete-btn {
-    padding: 8px 12px;
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    margin-right: 5px;
-}
-
-.see-comments-btn {
-    background-color: #ffc107;
-}
-
-.edit-btn {
-    background-color: #007bff;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-}
-
-.see-comments-btn:hover,
-.edit-btn:hover,
-.delete-btn:hover {
-    background-color: #333;
-}
-
-/* Filters Section */
 .filters {
-    margin-top: 40px;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.filters-title {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
 }
 
 .filters-form {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
 }
 
-.filter-group {
+.filters-container {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.filter-select {
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+.filter-card {
+    flex: 1 1 200px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
 }
 
 .filter-label {
-    font-size: 1rem;
-    color: #333;
-}
-/* Container for the two tables side by side */
-.statistics-tables-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px; /* Adjust the gap between the two tables */
-    margin-top: 20px;
-}
-
-/* Style for individual statistics tables */
-.statistics-table {
-    width: 48%; /* Adjust width to allow tables to fit side by side */
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-/* Styling for table header and cells */
-.statistics-table th, .statistics-table td {
-    padding: 10px 15px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-.statistics-table th {
-    background-color: #f8f9fa;
+    display: block;
     font-weight: bold;
-    color: black;
+    margin-bottom: 10px;
+    color: var(--text-color);
 }
 
-.statistics-table tr:nth-child(even) {
-    background-color: #f1f1f1;
+.filter-select, .date-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: #fff;
+    color: var(--text-color);
 }
 
-/* Optional: Adjust height of row if necessary */
-.statistics-table th, .statistics-table td {
-    min-width: 150px;
+.date-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
+.date-separator {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.apply-filters-container {
+    text-align: center;
+    width: 100%;
+}
+
+.apply-filters-btn {
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.apply-filters-btn:hover {
+    background-color: #0ea371;
+    transform: translateY(-2px);
+}
 </style>
 {% endblock %}

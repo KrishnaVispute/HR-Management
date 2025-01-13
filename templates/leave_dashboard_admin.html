@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <a href="{% url 'viewtasks' %}" class="btn btn-top">Go Back</a>
+    <a href="{% url 'viewtasks' %}" class="btn btn-back">Go Back</a>
 
     <h2>Admin Leave Dashboard</h2>
 
@@ -27,245 +27,254 @@
         </div>
     </div>
 
-    <!-- Employee's Leave Table (with Apply Leave Button above it) -->
+    <!-- Employee's Leave Requests -->
     <div class="employee-leave-requests">
-        <!-- Apply Leave Button (above employee leave requests) -->
-        <div class="apply-leave-btn-container">
-            <a href="{% url 'apply_leave' %}" class="btn-apply-leave">Apply for Leave</a>
+        <div class="action-btn-container">
+            <a href="{% url 'apply_leave' %}" class="btn btn-primary">Apply for Leave</a>
         </div>
-
         <h3>Your Leave Requests</h3>
-
         <div class="leave-table-container">
             <table>
-                <tr>
-                    <th>SR.No</th>
-                    <th>Leave Type</th>
-                    <th>Reason</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status</th>
-                </tr>
-                {% for leave in employee_leaves %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ leave.get_leave_type_display }}</td>
-                    <td>{{ leave.reason }}</td>
-                    <td>{{ leave.start_date }}</td>
-                    <td>{{ leave.end_date }}</td>
-                    <td>
-                        <span class="status {{ leave.status }}">
-                            {{ leave.get_status_display }}
-                        </span>
-                    </td>
-                </tr>
-                {% endfor %}
+                <thead>
+                    <tr>
+                        <th>SR.No</th>
+                        <th>Leave Type</th>
+                        <th>Reason</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leave in employee_leaves %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ leave.get_leave_type_display }}</td>
+                        <td>{{ leave.reason }}</td>
+                        <td>{{ leave.start_date }}</td>
+                        <td>{{ leave.end_date }}</td>
+                        <td>
+                            <span class="status {{ leave.status }}">
+                                {{ leave.get_status_display }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Admin Pending Leave Requests Section (with Leave Quota Button above it) -->
+    <!-- Pending Leave Requests -->
     <div class="pending-leave-requests">
-        <!-- Leave Quota Button (above pending leave requests) -->
-        <div class="leave-quota-btn-container">
-            <a href="{% url 'leave_quota_view' %}" class="btn-leave-quota">Add Leave Quota</a>
+        <div class="action-btn-container">
+            <a href="{% url 'leave_quota_view' %}" class="btn btn-secondary">Add Leave Quota</a>
         </div>
         <h3>Pending Leave Requests of Employees</h3>
-
         <div class="leave-table-container">
             <table>
-                <tr>
-                    <th>SR.No</th>
-                    <th>Employee</th>
-                    <th>Leave Type</th>
-                    <th>Reason</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                {% for leave in pending_leaves %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ leave.employee.username }}</td>
-                    <td>{{ leave.get_leave_type_display }}</td>
-                    <td>{{ leave.reason }}</td>
-                    <td>{{ leave.start_date }}</td>
-                    <td>{{ leave.end_date }}</td>
-                    <td>
-                        <span class="status {{ leave.status }}">
-                            {{ leave.get_status_display }}
-                        </span>
-                    </td>
-                    <td>
-                        <a href="{% url 'approve_or_reject_leave' leave.leave_id %}" class="btn-action">Edit</a>
-                    </td>
-                </tr>
-                {% endfor %}
+                <thead>
+                    <tr>
+                        <th>SR.No</th>
+                        <th>Employee</th>
+                        <th>Leave Type</th>
+                        <th>Reason</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for leave in pending_leaves %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ leave.employee.username }}</td>
+                        <td>{{ leave.get_leave_type_display }}</td>
+                        <td>{{ leave.reason }}</td>
+                        <td>{{ leave.start_date }}</td>
+                        <td>{{ leave.end_date }}</td>
+                        <td>
+                            <span class="status {{ leave.status }}">
+                                {{ leave.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'approve_or_reject_leave' leave.leave_id %}" class="btn btn-action">Edit</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
 </div>
 
 <style>
-    .dashboard-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 20px;
-    }
-
-    .apply-leave-btn-container, .leave-quota-btn-container {
-        margin-bottom: 20px;
-    }
-
-    .btn-apply-leave, .btn-leave-quota {
-        display: inline-block; /* Change to inline-block to fit content */
-        background-color: #007bff;
-        color: white;
-        padding: 8px 16px; /* Reduced padding for a more compact look */
-        border-radius: 5px;
-        text-decoration: none;
-        font-size: 16px;
-        transition: background-color 0.3s;
-        width: auto; /* Ensure button width fits content */
-    }
-
-    .btn-apply-leave:hover, .btn-leave-quota:hover {
-        background-color: #0056b3;
-    }
-
-    .pending-leave-requests, .employee-leave-requests {
-        width: 100%;
-        background-color: #f5f5f5;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-
-    .pending-leave-requests h3, .employee-leave-requests h3 {
-        margin-bottom: 15px;
-        font-size: 24px;
+    /* General Layout */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 0;
         color: #333;
     }
 
-    .leave-summary {
-        background-color: #f5f5f5;
-        padding: 20px;
-        border-radius: 8px;
-        width: 100%;
+    .dashboard-container {
+        padding: 30px;
+        background: #ffffff;
+        margin: 20px auto;
+        max-width: 1200px;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    h3 {
+        color: #34495e;
+        font-size: 1.5rem;
         margin-bottom: 20px;
+        border-bottom: 2px solid #eaeaea;
+        padding-bottom: 10px;
+    }
+
+    /* Buttons */
+    .btn {
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+
+    .btn-back {
+        margin-bottom: 20px;
+        background: #6c757d;
+    }
+
+    .btn-primary {
+        background: #007bff;
+    }
+
+    .btn-secondary {
+        background: #17a2b8;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+    /* Leave Summary */
+    .leave-summary {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
     .leave-type-summary {
         display: flex;
         justify-content: space-between;
-        gap: 20px;
     }
 
     .leave-type-box {
-        padding: 20px;
+        flex: 1;
+        padding: 15px;
+        margin: 5px;
         border-radius: 8px;
         color: white;
-        width: 30%;
         text-align: center;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        font-weight: bold;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .leave-type-box h4 {
-        margin-bottom: 10px;
-        font-size: 18px;
-    }
-
-    .leave-type-box span {
-        font-size: 14px;
-        font-weight: 600;
-    }
     .sick-leave-box {
-        background-color: #f44336; /* Red */
+        background: #e74c3c;
     }
 
     .casual-leave-box {
-        background-color: #2196F3; /* Blue */
+        background: #3498db;
     }
 
     .privilege-leave-box {
-        background-color: #4CAF50; /* Green */
+        background: #2ecc71;
     }
 
+    /* Tables */
     .leave-table-container {
-        width: 100%;
         overflow-x: auto;
     }
 
-    .leave-table-container table {
+    table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 20px;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .leave-table-container th,
-    .leave-table-container td {
-        padding: 10px;
-        border: 1px solid #ddd;
+    table th, table td {
+        padding: 12px;
         text-align: left;
+        border-bottom: 1px solid #eaeaea;
     }
 
-    .leave-table-container th {
-        background-color: #2196F3;
-        color: white;
+    table thead {
+        background: #007bff;
+        color: #fff;
     }
 
-    .leave-table-container td a {
-        background-color: #4CAF50;
-        color: white;
+    table tbody tr:hover {
+        background: #f8f9fa;
+    }
+
+    /* Status Badges */
+    .status {
+        display: inline-block;
         padding: 5px 10px;
         border-radius: 5px;
-        text-decoration: none;
-    }
-
-    .leave-table-container td a:hover {
-        background-color: #45a049;
-    }
-
-    /* Status color styling */
-    .status {
-        padding: 5px 10px;
-        border-radius: 4px;
+        font-size: 12px;
         font-weight: bold;
     }
 
     .status.pending {
-        background-color: #FFEB3B;
-        color: #F57F17;
-    }
-
-    .status.rejected {
-        background-color: #F44336;
-        color: white;
+        background: #f39c12;
+        color: #fff;
     }
 
     .status.approved {
-        background-color: #4CAF50;
+        background: #2ecc71;
         color: white;
     }
-    .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        color: #fff;
-        background-color: #4a90e2;
+
+    .status.rejected {
+        background: #e74c3c;
+        color: white;
     }
-    
-    .btn:hover {
-        background-color: #357ab7;
+
+    /* Action Buttons */
+    .btn-action {
+        background: #4caf50;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .btn-action:hover {
+        background: #388e3c;
     }
 </style>
-
 {% endblock %}

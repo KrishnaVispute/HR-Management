@@ -1,43 +1,139 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Employee List</h2>
-<table border="1">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
-            <th>Role</th>
-            <th>Department</th>
-            <th>Reporting Manager</th>
-            <th>Date of Joining</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for employee in employees %}
-        <tr>
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.first_name }}</td>
-            <td>{{ employee.last_name }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.mobile }}</td>
-            <td>{{ employee.role.role_name }}</td>
-            <td>{{ employee.department.dept_name }}</td>
-            <td>{{ employee.reporting_manager.username }}</td>
-            <td>{{ employee.date_of_joining }}</td>
-            <td>
-                <button><a href="{% url 'updateemployee' employee.id %}">Edit</a> </button>
-            </td>
-            <td>
-                <button class="delete"><a href="{% url 'deleteemployee' employee.id %}" onclick="return confirm('Are you sure?');">Delete</a></button>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="employee-list-container">
+    <h2 class="employee-list-title">Employee List</h2>
+    <div class="employee-table-container">
+        <table class="employee-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Role</th>
+                    <th>Department</th>
+                    <th>Reporting Manager</th>
+                    <th>Date of Joining</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.first_name }}</td>
+                    <td>{{ employee.last_name }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.mobile }}</td>
+                    <td>{{ employee.role.role_name }}</td>
+                    <td>{{ employee.department.dept_name }}</td>
+                    <td>{{ employee.reporting_manager.username }}</td>
+                    <td>{{ employee.date_of_joining }}</td>
+                    <td>
+                        <a href="{% url 'updateemployee' employee.id %}" class="action-btn edit-btn">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'deleteemployee' employee.id %}" class="action-btn delete-btn" onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+/* General Styles */
+.employee-list-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.employee-list-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Table Container */
+.employee-table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Table Header */
+.employee-table th {
+    background-color: #007bff;
+    color: #fff;
+    text-align: left;
+    padding: 15px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Table Rows */
+.employee-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.employee-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.employee-table tr:hover {
+    background-color: #e9f7fe;
+}
+
+/* Buttons */
+.action-btn {
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+.edit-btn {
+    background-color: #28a745;
+}
+
+.edit-btn:hover {
+    background-color: #218838;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+</style>
 {% endblock %}
